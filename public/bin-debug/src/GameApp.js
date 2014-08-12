@@ -44,6 +44,8 @@ var GameApp = (function (_super) {
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/resource.json", "resource/");
+        //                      egret.Profiler.getInstance().run();
+        //        console.log("Hello World!");
     };
 
     /**
@@ -53,6 +55,7 @@ var GameApp = (function (_super) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+        RES.loadGroup("preload");
         RES.loadGroup("preload");
     };
 
@@ -145,6 +148,7 @@ var GameApp = (function (_super) {
         var count = -1;
         var self = this;
         var change = function () {
+            //            alert("xxx");
             count++;
             if (count >= result.length) {
                 count = 0;
