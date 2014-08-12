@@ -34,6 +34,11 @@ var MGame = (function (_super) {
         this.piccontent.height = this.stageH;
         this.addChild(this.piccontent);
 
+        this.btnontent = new egret.DisplayObjectContainer();
+        this.btnontent.width = this.stageW;
+        this.btnontent.height = this.stageH;
+        this.addChild(this.btnontent);
+
         this.tipstext = new egret.TextField();
         this.addChild(this.tipstext);
         this.tipstext.y = 30;
@@ -91,8 +96,38 @@ var MGame = (function (_super) {
     * 创建游戏场景
     */
     MGame.prototype.createGameScene = function () {
+        //绘制一个透明度为1的绿色矩形，宽高为100*80
+        var spr1 = new egret.Sprite();
+        spr1.graphics.beginFill(0x00ff00, 1);
+        spr1.graphics.drawRect(0, 0, this.stageW * 0.16, this.stageW * 0.16 * 0.4);
+        spr1.width = this.stageW * 0.16;
+        spr1.height = this.stageW * 0.16 * 0.4;
+        spr1.y = spr1.height;
+        spr1.x = this.stageW - spr1.width - this.stageW * 0.1;
+        spr1.graphics.endFill();
+
+        var label = new egret.TextField();
+        this.addChild(label);
+        label.width = this.stageW * 0.16;
+        label.height = this.stageW * 0.16 * 0.4;
+        label.y = spr1.height;
+        label.x = this.stageW - spr1.width - this.stageW * 0.1;
+        label.text = "重新开始";
+        label.size = 14;
+
+        //          label.verticalAlign = egret.VerticalAlign.CENTER;
+        label.textAlign = egret.HorizontalAlign.CENTER;
+
+        //          label.verticalAlign = egret.verticalAlign.CENTER;
+        this.btnontent.addChild(spr1);
+        this.btnontent.addChild(label);
+
         this.tipstext.text = "开始游戏";
         this.addPic();
+        spr1.touchEnabled = true;
+        spr1.addEventListener(egret.TouchEvent.TOUCH_TAP, this.restart, this);
+
+        this.btnontent.visible = false;
         //          this.res1 = "pic3";
         //          this.res2 = "pic4";
         //          this.count = 8;
@@ -170,6 +205,7 @@ var MGame = (function (_super) {
             //              alert("game over！");
             this.tipstext.text = "游戏结束！";
             this.count == -2;
+            this.btnontent.visible = true;
 
             return;
         }
@@ -186,17 +222,17 @@ var MGame = (function (_super) {
         var distan = (this.stageW - this.imgw * 2 - 30) / 2.0;
 
         var twa = egret.Tween.get(imaga);
-        twa.to({ x: -this.imgw - distan, "alpha": 0 }, 1000);
+        twa.to({ x: -this.imgw - distan, "alpha": 0 }, 600);
 
         var twb = egret.Tween.get(imagb);
-        twb.to({ x: imagb.x + this.imgw + distan, "alpha": 0 }, 1000);
+        twb.to({ x: imagb.x + this.imgw + distan, "alpha": 0 }, 600);
 
         if (imagc) {
             imagc.y = imagc.y + 60;
             var twc = egret.Tween.get(imagc);
             var twc2 = egret.Tween.get(imagc);
             twc.to({ y: imagc.y - 60 }, 400);
-            twc2.to({ "alpha": 1 }, 1000);
+            twc2.to({ "alpha": 1 }, 600);
             //              twc.to({"alpha":1,y:imagc.y-60}, 1000 );
         }
 
@@ -207,7 +243,7 @@ var MGame = (function (_super) {
             twd.to({ y: imagd.y - 60 }, 400);
 
             //              twd.to({"alpha":1,y:imagd.y-60}, 1000);
-            twd2.to({ "alpha": 1 }, 1000);
+            twd2.to({ "alpha": 1 }, 600);
         }
 
         twb.call(this.addPic, this);
@@ -218,6 +254,12 @@ var MGame = (function (_super) {
 
     MGame.prototype.change = function () {
         this.flag = false;
+    };
+    MGame.prototype.restart = function () {
+        this.tipstext.text = "开始游戏";
+        this.btnontent.visible = false;
+        this.count = 8;
+        this.addPic();
     };
     return MGame;
 })(egret.DisplayObjectContainer);
