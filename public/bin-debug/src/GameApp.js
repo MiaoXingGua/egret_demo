@@ -56,6 +56,7 @@ var GameApp = (function (_super) {
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
         RES.loadGroup("preload");
+        RES.loadGroup("preload");
     };
 
     /**
@@ -147,7 +148,7 @@ var GameApp = (function (_super) {
         var count = -1;
         var self = this;
         var change = function () {
-            alert("xxx");
+            //            alert("xxx");
             count++;
             if (count >= result.length) {
                 count = 0;

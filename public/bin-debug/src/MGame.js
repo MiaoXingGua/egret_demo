@@ -41,6 +41,9 @@ var MGame = (function (_super) {
         this.tipstext.text = "";
         this.tipstext.textAlign = "center";
 
+        this.imgw = this.stageW / 2 - 30;
+        this.imgh = this.imgw * 2;
+
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.loadConfig("resource/mresource.json", "resource/");
@@ -107,9 +110,10 @@ var MGame = (function (_super) {
         var img = new egret.Bitmap();
         if (this.count - 3 >= 1)
             img.texture = RES.getRes("pic" + (this.count - 3));
-        img.scaleX = 210 / img.width;
-        img.scaleY = 420 / img.height;
-        img.x = (this.stageW - 420 - 30) / 2.0;
+        img.scaleX = this.imgw / img.width;
+        img.scaleY = this.imgh / img.height;
+
+        img.x = (this.stageW - this.imgw * 2 - 30) / 2.0;
         img.y = 100;
         this.piccontent.addChild(img);
         img.touchEnabled = true;
@@ -121,11 +125,12 @@ var MGame = (function (_super) {
         var img2 = new egret.Bitmap();
         if (this.count - 2 >= 2)
             img2.texture = RES.getRes("pic" + (this.count - 2));
-        img2.scaleX = 210 / img2.width;
-        img2.scaleY = 420 / img2.height;
-        img2.x = img.x + 210 + 30;
+        img2.scaleX = this.imgw / img2.width;
+        img2.scaleY = this.imgh / img2.height;
+        img2.x = img.x + this.imgw + 30;
         img2.y = 100;
         img2.alpha = 0;
+
         this.piccontent.addChild(img2);
         img2.touchEnabled = true;
         img2.name = "d";
@@ -136,9 +141,9 @@ var MGame = (function (_super) {
         //          if(!this.img3)
         var img3 = new egret.Bitmap();
         img3.texture = RES.getRes("pic" + (this.count - 1));
-        img3.scaleX = 210 / img3.width;
-        img3.scaleY = 420 / img3.height;
-        img3.x = (this.stageW - 420 - 30) / 2.0;
+        img3.scaleX = this.imgw / img3.width;
+        img3.scaleY = this.imgh / img3.height;
+        img3.x = (this.stageW - this.imgw * 2 - 30) / 2.0;
         img3.y = 100;
         img3.name = "a";
         this.piccontent.addChild(img3);
@@ -148,9 +153,9 @@ var MGame = (function (_super) {
         //          if(!this.img4)
         var img4 = new egret.Bitmap();
         img4.texture = RES.getRes("pic" + this.count);
-        img4.scaleX = 210 / img4.width;
-        img4.scaleY = 420 / img4.height;
-        img4.x = img3.x + 210 + 30;
+        img4.scaleX = this.imgw / img4.width;
+        img4.scaleY = this.imgh / img4.height;
+        img4.x = img3.x + this.imgw + 30;
         img4.y = 100;
         img4.name = "b";
         this.piccontent.addChild(img4);
@@ -178,13 +183,13 @@ var MGame = (function (_super) {
         var imagc = this.piccontent.getChildByName("c");
         var imagd = this.piccontent.getChildByName("d");
 
-        var distan = (this.stageW - 420 - 30) / 2.0;
+        var distan = (this.stageW - this.imgw * 2 - 30) / 2.0;
 
         var twa = egret.Tween.get(imaga);
-        twa.to({ x: -210 - distan, "alpha": 0 }, 1000);
+        twa.to({ x: -this.imgw - distan, "alpha": 0 }, 1000);
 
         var twb = egret.Tween.get(imagb);
-        twb.to({ x: imagb.x + 210 + distan, "alpha": 0 }, 1000);
+        twb.to({ x: imagb.x + this.imgw + distan, "alpha": 0 }, 1000);
 
         if (imagc) {
             imagc.y = imagc.y + 60;
