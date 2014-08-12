@@ -18,6 +18,7 @@ var MGame = (function (_super) {
 
         this.stageW = this.stage.stageWidth;
         this.stageH = this.stage.stageHeight;
+        this.flag = false;
         this.count = 8;
         this.maxcount = 5;
         var topMask = new egret.Shape();
@@ -32,6 +33,13 @@ var MGame = (function (_super) {
         this.piccontent.width = this.stageW;
         this.piccontent.height = this.stageH;
         this.addChild(this.piccontent);
+
+        this.tipstext = new egret.TextField();
+        this.addChild(this.tipstext);
+        this.tipstext.y = 30;
+        this.tipstext.x = this.stageW / 2 - 40;
+        this.tipstext.text = "";
+        this.tipstext.textAlign = "center";
 
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
@@ -80,6 +88,7 @@ var MGame = (function (_super) {
     * 创建游戏场景
     */
     MGame.prototype.createGameScene = function () {
+        this.tipstext.text = "开始游戏";
         this.addPic();
         //          this.res1 = "pic3";
         //          this.res2 = "pic4";
@@ -92,14 +101,15 @@ var MGame = (function (_super) {
         //         if(temp < 1)
         //           return;
         //150 300
+        //210 420
         this.piccontent.removeChildren();
 
         var img = new egret.Bitmap();
         if (this.count - 3 >= 1)
             img.texture = RES.getRes("pic" + (this.count - 3));
-        img.scaleX = 150 / img.width;
-        img.scaleY = 300 / img.height;
-        img.x = (this.stageW - 300 - 30) / 2.0;
+        img.scaleX = 210 / img.width;
+        img.scaleY = 420 / img.height;
+        img.x = (this.stageW - 420 - 30) / 2.0;
         img.y = 100;
         this.piccontent.addChild(img);
         img.touchEnabled = true;
@@ -111,9 +121,9 @@ var MGame = (function (_super) {
         var img2 = new egret.Bitmap();
         if (this.count - 2 >= 2)
             img2.texture = RES.getRes("pic" + (this.count - 2));
-        img2.scaleX = 150 / img2.width;
-        img2.scaleY = 300 / img2.height;
-        img2.x = img.x + 150 + 30;
+        img2.scaleX = 210 / img2.width;
+        img2.scaleY = 420 / img2.height;
+        img2.x = img.x + 210 + 30;
         img2.y = 100;
         img2.alpha = 0;
         this.piccontent.addChild(img2);
@@ -122,12 +132,13 @@ var MGame = (function (_super) {
         img2.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouch, this);
 
         //150 300
+        //210 420
         //          if(!this.img3)
         var img3 = new egret.Bitmap();
         img3.texture = RES.getRes("pic" + (this.count - 1));
-        img3.scaleX = 150 / img3.width;
-        img3.scaleY = 300 / img3.height;
-        img3.x = (this.stageW - 300 - 30) / 2.0;
+        img3.scaleX = 210 / img3.width;
+        img3.scaleY = 420 / img3.height;
+        img3.x = (this.stageW - 420 - 30) / 2.0;
         img3.y = 100;
         img3.name = "a";
         this.piccontent.addChild(img3);
@@ -137,9 +148,9 @@ var MGame = (function (_super) {
         //          if(!this.img4)
         var img4 = new egret.Bitmap();
         img4.texture = RES.getRes("pic" + this.count);
-        img4.scaleX = 150 / img4.width;
-        img4.scaleY = 300 / img4.height;
-        img4.x = img3.x + 150 + 30;
+        img4.scaleX = 210 / img4.width;
+        img4.scaleY = 420 / img4.height;
+        img4.x = img3.x + 210 + 30;
         img4.y = 100;
         img4.name = "b";
         this.piccontent.addChild(img4);
@@ -151,25 +162,29 @@ var MGame = (function (_super) {
 
     MGame.prototype.onTouch = function (evt) {
         if (this.count < 2) {
-            alert("game over！");
+            //              alert("game over！");
+            this.tipstext.text = "游戏结束！";
             this.count == -2;
+
             return;
         }
-        if (this.count == -2)
+        if (this.count == -2 || this.flag)
             return;
+
+        this.tipstext.text = "第" + (4 - this.count / 2) + "关";
 
         var imaga = this.piccontent.getChildByName("a");
         var imagb = this.piccontent.getChildByName("b");
         var imagc = this.piccontent.getChildByName("c");
         var imagd = this.piccontent.getChildByName("d");
 
-        var distan = (this.stageW - 300 - 30) / 2.0;
+        var distan = (this.stageW - 420 - 30) / 2.0;
 
         var twa = egret.Tween.get(imaga);
-        twa.to({ x: -150 - distan, "alpha": 0 }, 1000);
+        twa.to({ x: -210 - distan, "alpha": 0 }, 1000);
 
         var twb = egret.Tween.get(imagb);
-        twb.to({ x: imagb.x + 150 + distan, "alpha": 0 }, 1000);
+        twb.to({ x: imagb.x + 210 + distan, "alpha": 0 }, 1000);
 
         if (imagc) {
             imagc.y = imagc.y + 60;
@@ -191,6 +206,13 @@ var MGame = (function (_super) {
         }
 
         twb.call(this.addPic, this);
+
+        twc2.call(this.change, this);
+        this.flag = true;
+    };
+
+    MGame.prototype.change = function () {
+        this.flag = false;
     };
     return MGame;
 })(egret.DisplayObjectContainer);
