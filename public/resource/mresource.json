@@ -1,0 +1,22 @@
+{
+"resources":
+	[
+		{"name":"pic1","type":"image","url":"assets/a.jpg"},
+        {"name":"pic2","type":"image","url":"assets/b.jpg"},
+        {"name":"pic3","type":"image","url":"assets/c.jpg"},
+        {"name":"pic4","type":"image","url":"assets/d.jpg"},
+        {"name":"pic5","type":"image","url":"assets/e.jpg"},
+        {"name":"pic6","type":"image","url":"assets/f.jpg"},
+        {"name":"pic7","type":"image","url":"assets/j.jpg"},
+        {"name":"pic8","type":"image","url":"assets/h.jpg"},
+
+        {"name":"loading","type":"image","url":"assets/loading.jpg"}
+	],
+
+"groups":
+	[
+        {"name":"preload","keys":"loading"},
+        {"name":"picload","keys":"pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8"}
+
+	]
+}
