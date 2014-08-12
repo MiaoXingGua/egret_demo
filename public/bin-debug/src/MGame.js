@@ -61,8 +61,9 @@ var MGame = (function (_super) {
         RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
         RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.loadGroup("preload", 1);
-        RES.loadGroup("picload", 0);
+
+        //          RES.loadGroup("preload",1);
+        RES.loadGroup("picload");
     };
 
     /**
@@ -102,7 +103,7 @@ var MGame = (function (_super) {
         spr1.graphics.drawRect(0, 0, this.stageW * 0.16, this.stageW * 0.16 * 0.4);
         spr1.width = this.stageW * 0.16;
         spr1.height = this.stageW * 0.16 * 0.4;
-        spr1.y = spr1.height;
+        spr1.y = 20;
         spr1.x = this.stageW - spr1.width - this.stageW * 0.1;
         spr1.graphics.endFill();
 
@@ -110,7 +111,7 @@ var MGame = (function (_super) {
         this.addChild(label);
         label.width = this.stageW * 0.16;
         label.height = this.stageW * 0.16 * 0.4;
-        label.y = spr1.height;
+        label.y = 20;
         label.x = this.stageW - spr1.width - this.stageW * 0.1;
         label.text = "重新开始";
         label.size = 14;

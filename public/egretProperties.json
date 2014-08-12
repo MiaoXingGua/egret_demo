@@ -1,0 +1,8 @@
+{
+    "document_class" : "MGame",
+    "native": {
+        "path_ignore": [
+            "libs"
+        ]
+    }
+}
