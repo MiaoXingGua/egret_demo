@@ -35,7 +35,6 @@ var LoadingUI = (function (_super) {
     function LoadingUI() {
         _super.call(this);
         this.createView();
-        this.createImage();
     }
     LoadingUI.prototype.createView = function () {
         this.textField = new egret.TextField();
@@ -49,20 +48,6 @@ var LoadingUI = (function (_super) {
     LoadingUI.prototype.setProgress = function (current, total) {
         this.textField.text = "游戏加载中..." + current + "/" + total;
     };
-
-    LoadingUI.prototype.createImage = function () {
-        this.img = new egret.Bitmap();
-        this.addChild(this.img);
-        this.img.texture = RES.getRes("loading");
-        this.img.width *= 100;
-        this.img.height *= 100;
-        this.img.x = 100;
-        this.img.y = 100;
-    };
-
-    LoadingUI.prototype.setImage = function (str) {
-        this.img.texture = RES.getRes(str);
-    };
     return LoadingUI;
-})(egret.DisplayObjectContainer);
+})(egret.Sprite);
 LoadingUI.prototype.__class__ = "LoadingUI";
