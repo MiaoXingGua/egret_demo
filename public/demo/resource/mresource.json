@@ -1,0 +1,22 @@
+{
+"resources":
+	[
+		{"name":"pic1","type":"image","url":"assets/1.png"},
+        {"name":"pic2","type":"image","url":"assets/2.png"},
+        {"name":"pic3","type":"image","url":"assets/2.png"},
+        {"name":"pic4","type":"image","url":"assets/1.png"},
+        {"name":"pic5","type":"image","url":"assets/2.png"},
+        {"name":"pic6","type":"image","url":"assets/1.png"},
+        {"name":"pic7","type":"image","url":"assets/1.png"},
+        {"name":"pic8","type":"image","url":"assets/2.png"}
+
+
+	],
+
+"groups":
+	[
+
+        {"name":"picload","keys":"pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8"}
+
+	]
+}
